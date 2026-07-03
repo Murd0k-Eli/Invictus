@@ -32,6 +32,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
+# SETTINGS_PATH = os.path.dirname(os.path.dirname(__file__))
 
 # Application definition
 
@@ -44,7 +45,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'api',
     'rest_framework',
-    'corsheaders'
+    'corsheaders',
+    'blog',
+    'users',
+    'crispy_forms',
+    'tinymce',
+    'crispy_bootstrap5',
 ]
 
 MIDDLEWARE = [
@@ -57,6 +63,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     ]
+
+#ROOT_URLCONF = 'Invictus.urls'
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
@@ -78,6 +86,11 @@ SIMPLE_JWT = {
     'ALGORITHM': 'HS256'
 }
 
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000", # Use this if using Create-React-App
+    "http://localhost:5173", # Use this if using Vite
+]
+
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOW_METHODS = (
@@ -87,6 +100,9 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
 ]
 ROOT_URLCONF = 'Invictus.urls'
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 TEMPLATES = [
     {
@@ -112,12 +128,12 @@ WSGI_APPLICATION = 'Invictus.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        #'NAME': BASE_DIR / 'db.sqlite3',
-        'NAME' : os.getenv("DB_NAME"),
-        'USER' : os.getenv("DB_USER"),
-        'PASSWORD' : os.getenv("DB_PWD"),
-        'HOST': os.getenv("DB_HOST"),
-        'PORT' : os.getenv("DB_PORT"),
+        'NAME': BASE_DIR / 'db.sqlite3',
+        #'NAME' : os.getenv("DB_NAME"),
+        #'USER' : os.getenv("DB_USER"),
+        #'PASSWORD' : os.getenv("DB_PWD"),
+        #'HOST': os.getenv("DB_HOST"),
+        #'PORT' : os.getenv("DB_PORT"),
     }
 }
 
@@ -157,3 +173,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = 'static/'
+
+# Default primary key field type
+# https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
+
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+LOGIN_REDIRECT_URL = 'index'
+LOGIN_URL ='login'

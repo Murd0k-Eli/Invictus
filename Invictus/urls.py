@@ -30,4 +30,6 @@ urlpatterns = [
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('api/auth/', include('rest_framework.urls')),  # Add this line to include the login/logout views
     path('api/', include('api.urls')),  # Include the URLs from the api app
+    path('', include('blog.urls')),
+    path('accounts/', include('users.urls')),
 ]

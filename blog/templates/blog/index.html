@@ -1,0 +1,31 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+
+<div class ="row">
+    <div class = "col-md-6 col-12 mx-3 mx-md-auto mt-5 mb-5">
+        <h1 class="fw-bolder">Invictus</h1>
+        <h5 class="text-muted">A blog about Django, Python and React</h5>
+    </div>
+</div>
+{% for object in object_list %}
+<div class ="row">
+    <div class = "col-md-6 col-11 mx-3 mx-md-auto mt-5 mb-5">
+        <h3 class="fw-bold">{{ object.title }}</h3>
+        <p class="text-muted"> {{object.date}}</p>
+        <p class="text-muted">Posted By {{object.author.username }}</p>
+        {% if objects.likes.count == 1 %}
+            <p class= "text-muted"> {{ object.likes.count }} person likes this post.</p>
+        {% else %}
+            <p class="text-muted"> {{ object.likes.count }} people like this post.</p>
+        {% endif %}
+        <div class="my-3">
+            {{ object.content|truncatewords_html:50|safe }}
+        </div>
+        <a href = "{% url 'detail_article' object.id %}">Read More</a>
+    </div>
+</div>
+{% endfor %}
+{% include 'blog/paginate.html' %}
+{% endblock content %}
+
