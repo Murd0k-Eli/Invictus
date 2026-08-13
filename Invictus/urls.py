@@ -31,5 +31,6 @@ urlpatterns = [
     path('api/auth/', include('rest_framework.urls')),  # Add this line to include the login/logout views
     path('api/', include('api.urls')),  # Include the URLs from the api app
     path('', include('blog.urls')),
+    path("polls/", include("polls.urls")),
     path('accounts/', include('users.urls')),
 ]

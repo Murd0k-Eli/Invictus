@@ -23,7 +23,8 @@ djangorestframework-simplejwt
 PyJWT
 pytz
 psycopg2-binary
-python-dotenvanyio==4.14.1
+python-dotenv
+anyio==4.14.1
 asgiref==3.11.1
 certifi==2026.6.17
 charset-normalizer==3.4.7
