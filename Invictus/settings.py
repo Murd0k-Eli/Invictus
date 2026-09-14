@@ -51,10 +51,12 @@ INSTALLED_APPS = [
 
     'rest_framework',
     'corsheaders',
-
+    'tailwind',
+    'theme',
     'crispy_forms',
     'tinymce',
     'crispy_bootstrap5',
+    'django_browser_reload',
 ]
 
 MIDDLEWARE = [
@@ -66,6 +68,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'corsheaders.middleware.CorsMiddleware',        #CORS Headers Middleware
+    'django_browser_reload.middleware.BrowserReloadMiddleware',  # Browser Reload Middleware
     ]
 
 #ROOT_URLCONF = 'Invictus.urls'
@@ -107,6 +110,11 @@ ROOT_URLCONF = 'Invictus.urls'
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
+
+TAILWIND_APP_NAME = 'theme'
+INTERNAL_IPS = ['127.0.0.1']
+NPM_BIN_PATH = "/home/kumar/.local/bin/npm"
+
 
 TEMPLATES = [
     {
