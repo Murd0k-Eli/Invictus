@@ -111,7 +111,7 @@ CRISPY_TEMPLATE_PACK = "bootstrap5"
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -174,9 +174,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 # Directory where Django looks for global assets
-STATICFILES_DIRS = [
-    BASE_DIR / "static", 
-]
+STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")] 
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
