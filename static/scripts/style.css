@@ -1,0 +1,134 @@
+.site-footer {
+    background-color: #000000;
+    color: #ffffff;
+    padding: 48px 24px 24px;
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 32px;
+    justify-content: space-between;
+}
+
+.footer-col {
+    flex: 1 1 200px;
+}
+.footer-col h3,
+.footer-col h4 {
+    margin-bottom: 16px;
+    font-size: 1.1rem;
+}
+.footer-col ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.footer-col li {
+    margin-bottom: 8px;
+}
+.footer-col a {
+    color: #cccccc;
+    text-decoration: none;
+}
+.footer-col a:hover {
+    color: #ffffff;
+}
+.footer-col form {
+    display: flex;
+    gap: 8px;
+}
+.footer-col input {
+    padding: 8px 12px;
+    border: 1px solid #444;
+    background: #222;
+    color: #fff;
+    border-radius: 4px;
+}
+.footer-col button {
+    padding: 8px 16px;
+    background: #0066ff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.footer-bottom {
+    max-width: 1200px;
+    margin: 40px auto 0;
+    padding-top: 24px;
+    border-top: 1px solid #333;
+    text-align: center;
+    font-size: 0.85rem;
+    color: #88858a;
+}
+@media (max-width: 600px) {
+    .footer-container {
+        flex-direction: column;
+    }
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 10px 20px;
+    background: #031d38;
+    color: #aca4a4;
+    line-height: 1.25;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    background: #fff;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+}
+
+h1 {
+    font-size: 2.2rem;
+    margin-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.3rem;
+    margin-top: 30px;
+    margin-bottom: 12px;
+    color: #111;
+}
+
+p,
+li {
+    font-size: 1rem;
+}
+
+ul {
+    padding-left: 20px;
+}
+
+.meta {
+    font-style: italic;
+    color: #666;
+    margin-bottom: 25px;
+}
+
+.contact {
+    margin-top: 20px;
+}
+
+.cookie-banner {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #222;
+  color: #fff;
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 9999;
+}

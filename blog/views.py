@@ -54,6 +54,5 @@ class DeleteArticleView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     def test_func(self):
         article = Article.objects.get(id=self.kwargs.get('pk'))
         return self.request.user.id == article.author.id
-from django.shortcuts import render
 
 # Create your views here.

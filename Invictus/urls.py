@@ -16,6 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.views.generic import TemplateView
 #from django.conf.urls import
 from api.views import CreateUserView
 from rest_framework_simplejwt.views import (
@@ -24,10 +25,18 @@ from rest_framework_simplejwt.views import (
 )
 from django.conf import settings
 from django.conf.urls.static import static
+from . import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('blog.urls')),
+    path('', views.home_view, name='home'),
+    path('blog/', include('blog.urls')),
+    path('about/', views.about_view, name='about'),
+    path('contact/', views.contact_view, name='contact'),
+    path('privacy/', views.privacy_view, name='privacy'),
+    path('terms/', views.terms_view, name='terms'),
+    path('robots.txt', TemplateView.as_view(template_name='robots.txt', content_type='text/plain'), name='robots'),
+    path('sitemap.xml', TemplateView.as_view(template_name='sitemap.xml', content_type='application/xml'), name='sitemap'),
     path("polls/", include("polls.urls")),
     path('accounts/', include('users.urls')),
     path('api/user/register/', CreateUserView.as_view(), name='register'),

@@ -7,11 +7,11 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-frontend/node_modules
 static/dist
 dist-ssr
 *.local
 
+.vite/
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
@@ -29,6 +29,6 @@ env/
 venv/
 
 # Ignore Node.js dependencies
-frontend/node_modules/
-node_modules/
-.vite/
+frontend/node_modules
+node_modules
+theme/static_src/node_modules

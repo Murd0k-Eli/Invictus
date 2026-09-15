@@ -3,7 +3,7 @@ from .views import Index, DetailArticleView, LikeArticle, Featured, DeleteArticl
 
 urlpatterns = [
         path('tinymce/', include('tinymce.urls')),
-        path('', Index.as_view(), name ='index'),
+        path('', Index.as_view(), name ='blog'),
         path('<int:pk>/', DetailArticleView.as_view(), name='detail_article'),
         path('<int:pk>/like', LikeArticle.as_view(), name='like_article'),
         path('<int:pk>/delete', DeleteArticleView.as_view(), name='delete_article'),
