@@ -1,6 +1,7 @@
 # your_app/middleware.py
 from django.utils.deprecation import MiddlewareMixin
 import re
+from django.http import HttpResponseForbidden
 
 class TrafficLoggerMiddleware:
     # A compiled regex of common bot, crawler, and spider signatures
@@ -12,10 +13,10 @@ class TrafficLoggerMiddleware:
         self.get_response = get_response
 
     def __call__(self, request):
-        # 1. Process the response first to get the final HTTP status code
+        # Process the response first to get the final HTTP status code
         response = self.get_response(request)
 
-        # 2. Extract visitor details
+        # Extract visitor details
         # Handle proxy setups (like Nginx, Cloudflare, or Heroku) if applicable
         x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
         if x_forwarded_for:
@@ -23,6 +24,10 @@ class TrafficLoggerMiddleware:
         else:
             ip = request.META.get('REMOTE_ADDR')
 
+        # Hard block if they triggered the honeypot before
+        if FlaggedBotIP.objects.filter(ip_address=ip).exists():
+            return HttpResponseForbidden("Access Denied: Malicious activity detected.")
+          
         # Extract other metadata
         path = request.path
         method = request.method
