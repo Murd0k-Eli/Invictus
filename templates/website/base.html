@@ -26,11 +26,7 @@
         -->
         {% block content %}
         {% endblock content %}
-        <div id="cookie-banner" class="cookie-banner" style="display: none;">
-        <p>We use cookies to improve your experience. <a href="/privacy/">Learn more</a></p>
-        <button id="accept-cookies">Accept</button>
-        <button id="reject-cookies">Reject</button>
-        </div>
+        {% include 'website/cookie-banner.html' %}
         {% include 'website/footer.html' %}
     </body>
 </html>

@@ -1,22 +1,24 @@
 //console.log("Hello, World!");
-document.addEventListener("DOMContentLoaded", function() {
-    const button = document.getElementById("myButton");
-    if (button) {
-        console.log("The button was successfully found!");
-        function showAlert() {
-            alert("The external script file was successfully called!");
-            alert("An alert Popped Up!");
-        }
-        button.addEventListener("click", showAlert);
-        console.log("The external script file was successfully called!");
-        console.log("The button was successfully found and the event listener was added!");
+/*
+const button = document.getElementById("myButton");
+if (button) {
+    console.log("The button was successfully found!");
+    function showAlert() {
+        alert("The external script file was successfully called!");
+        alert("An alert Popped Up!");
     }
-
+    button.addEventListener("click", showAlert);
+    console.log("The external script file was successfully called!");
+    console.log("The button was successfully found and the event listener was added!");
+} else {
+    console.log("The button was not found!");
+}
+*/
+document.addEventListener("DOMContentLoaded", function() {
     const consent = localStorage.getItem("cookieConsent");
     const banner = document.getElementById("cookie-banner");
     const acceptButton = document.getElementById("accept-cookies");
     const rejectButton = document.getElementById("reject-cookies");
-
     if (banner) {
         // Only show the banner if no consent has been recorded (neither accepted nor rejected)
         if (!consent) {
