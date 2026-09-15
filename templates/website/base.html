@@ -28,7 +28,7 @@
         {% endblock content %}
         <!-- At the very bottom of your base.html inside the <body> tags -->
         <div style="display: none; visibility: hidden;" aria-hidden="true">
-            <a href="/hidden-panel/login/" rel="nofollow" tabindex="-1">Click here to access dashboard setup</a>
+            <a href="{% url 'honeypot_trap' %}" rel="nofollow" tabindex="-1">Click here to access dashboard setup</a>
         </div>
         {% include 'website/cookie-banner.html' %}
         {% include 'website/footer.html' %}

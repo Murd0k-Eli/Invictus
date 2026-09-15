@@ -17,12 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.views.generic import TemplateView
-#from django.conf.urls import
-from api.views import CreateUserView
-from rest_framework_simplejwt.views import (
-    TokenObtainPairView,
-    TokenRefreshView,
-)
+#from django.conf.urls import url
 from django.conf import settings
 from django.conf.urls.static import static
 from . import views
@@ -38,12 +33,8 @@ urlpatterns = [
     path('robots.txt', TemplateView.as_view(template_name='robots.txt', content_type='text/plain'), name='robots'),
     path('sitemap.xml', TemplateView.as_view(template_name='sitemap.xml', content_type='application/xml'), name='sitemap'),
     path('analytics/', include('analytics.urls')),  # Include the URLs from the analytics app
-    path("polls/", include("polls.urls")),
     path('accounts/', include('users.urls')),
-    path('api/user/register/', CreateUserView.as_view(), name='register'),
-    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-    path('api/auth/', include('rest_framework.urls')),  # Add this line to include the login/logout views
     path('api/', include('api.urls')),  # Include the URLs from the api app
+    path("polls/", include("polls.urls")),
     path("__reload__/", include("django_browser_reload.urls")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)  # Serve media files during development
