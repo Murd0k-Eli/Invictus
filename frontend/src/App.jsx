@@ -1,24 +1,62 @@
-import { useEffect, useState } from 'react'
+import react, { useEffect, useState} from 'react'
+import {BrowserRouter, Routes, Route, Navigate} from 'react-router-dom'
 
-export default function App() {
-  const [message, setMessage] = useState('Connecting to DRF...')
+/* Import Pages from a file */
+import Home from './pages/home.jsx'
+import NotFound from './pages/notfound.jsx'
+import Login from './pages/login.jsx'
+import Register from './pages/register.jsx'
 
-  useEffect(() => {
-    // Testing the Django Proxy Connection
-    fetch('/api/some-endpoint/')
-      .then(res => res.json())
-      .then(data => setMessage(data.message || "Connected!"))
-      .catch(err => setMessage("DRF server offline, proxy routing verified."))
-  }, [])
+/* Import Images from a file */
+import InvictusLogo from './assets/invictus.png'
 
+/* Import components from a file */
+import ProtectedRoute from './components/protectedroute.jsx'
+import Header from './components/header.jsx'
+import Footer from './components/footer.jsx'
+
+
+
+/* Import Modules from a file */
+import Axios from 'axios'
+
+/* Define the App functions */
+function Logout() {
+  localStorage.removeItem('access_token');
+  localStorage.removeItem('refresh_token');
+  window.location.href = '/login';
+  return <Navigate to="/login" />;
+}
+
+function RegisterAndLogout() {
+  const accessToken = localStorage.getItem('access_token');
+  if (accessToken) {
+    return <Logout />;
+  } else {
+    return <Register />;
+  }
+  localStorage.removeItem('access_token');
+  localStorage.removeItem('refresh_token');
+  window.location.href = '/register';
+  return <Navigate to="/register" />;
+}
+
+function App() {
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-slate-900 text-white p-6">
-      <h1 className="text-4xl font-extrabold tracking-tight text-cyan-400 mb-4">
-        Invictus App
-      </h1>
-      <p className="text-lg text-slate-300 bg-slate-800 px-4 py-2 rounded-lg border border-slate-700">
-        Status: {message}
-      </p>
-    </div>
+    <>
+      <Header />
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<ProtectedRoute><Home /></ProtectedRoute>} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/logout" element={<Logout />} />
+          <Route path="/register" element={<RegisterAndLogout />} />
+          <Route path="*" element={<NotFound />}></Route>
+        </Routes>
+      </BrowserRouter>
+      <Footer />
+    </>
   )
 }
+
+export default App
