@@ -36,7 +36,7 @@ class TrafficLoggerMiddleware:
         is_honeypot_bot = FlaggedBotIP.objects.filter(ip_address=ip).exists()
 
         # 3. Save to database (skip static/media files to avoid bloat)
-        if not path.startswith(('/static/', '/media/', '/admin/js/', '/hidden-panel/login/')) and not self.BOT_REGEX.search(user_agent) and not is_honeypot_bot:
+        if not path.startswith(('/static/', '/media/', '/admin/js/', '/analytics', '/robots.txt')) and not self.BOT_REGEX.search(user_agent) and not is_honeypot_bot:
             TrafficLog.objects.create(
                 ip_address=ip,
                 path=path,

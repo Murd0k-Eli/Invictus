@@ -21,6 +21,7 @@ from django.views.generic import TemplateView
 from django.conf import settings
 from django.conf.urls.static import static
 from . import views
+from django.http import HttpResponse
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -30,7 +31,7 @@ urlpatterns = [
     path('contact/', views.contact_view, name='contact'),
     path('privacy/', views.privacy_view, name='privacy'),
     path('terms/', views.terms_view, name='terms'),
-    path('robots.txt', TemplateView.as_view(template_name='robots.txt', content_type='text/plain'), name='robots'),
+    path('robots.txt', TemplateView.as_view(template_name='robots.txt', content_type="text/plain"), name='robots'),
     path('sitemap.xml', TemplateView.as_view(template_name='sitemap.xml', content_type='application/xml'), name='sitemap'),
     path('analytics/', include('analytics.urls')),  # Include the URLs from the analytics app
     path('accounts/', include('users.urls')),
