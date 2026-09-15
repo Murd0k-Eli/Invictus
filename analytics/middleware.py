@@ -2,6 +2,11 @@
 from .models import TrafficLog
 
 class TrafficLoggerMiddleware:
+    # A compiled regex of common bot, crawler, and spider signatures
+    BOT_REGEX = re.compile(
+        r'bot|crawler|spider|slurp|crawler|baidu|yandex|sogou|exabot|duckduckgo|ia_archiver|facebot|facebookexternalhit', 
+        re.IGNORECASE
+    )
     def __init__(self, get_response):
         self.get_response = get_response
 
@@ -25,7 +30,7 @@ class TrafficLoggerMiddleware:
         referrer = request.META.get('HTTP_REFERER', '')
 
         # 3. Save to database (skip static/media files to avoid bloat)
-        if not path.startswith(('/static/', '/media/', '/admin/js/')):
+        if not path.startswith(('/static/', '/media/', '/admin/js/')) and not self.BOT_REGEX.search(user_agent):
             TrafficLog.objects.create(
                 ip_address=ip,
                 path=path,
