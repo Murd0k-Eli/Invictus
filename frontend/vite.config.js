@@ -3,15 +3,24 @@ import react from '@vitejs/plugin-react' // or vue, svelte, etc.
 
 import tailwindcss from '@tailwindcss/vite'
 
+import path from 'path';
+import { fileURLToPath } from 'node:url'
+import { dirname } from 'node:path'
+
 export default defineConfig({
   build: {
-    outDir: 'dist', // Specify the output directory for the build
+    outDir: '../static/dist', // 👈 Pushes built assets directly to your root static folder
+    emptyOutDir: true,
+    manifest: true,            // 👈 Essential for django-vite parsing
+    rollupOptions: {
+      input: './src/main.jsx', // 👈 Identifies main React mount entry path
+    }
   },
   plugins: [
     tailwindcss(),
     react(),
   ],
-  root: './',  // already default relative to config file location
+  //root: path.resolve(import.meta.dirname ?? dirname(fileURLToPath(import.meta.url)), 'src'), // already default relative to config file location
   server: {
     port: 3000, // Specify the port you want to use
     proxy: {
@@ -21,6 +30,7 @@ export default defineConfig({
         changeOrigin: true,
         secure: false,
       }
-    }
+    },
+    cors: true,
   }
 })

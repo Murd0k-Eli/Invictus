@@ -8,15 +8,12 @@
     "build": "vite build",
     "start": "npm run dev",
     "preview": "vite preview",
-    "lint": "oxlint",
-    "watch:css": "npx postcss ./src/index.css -o ../static/css/dist/styles.css --watch"
+    "lint": "oxlint"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^6.1.1",
-    "autoprefixer": "^10.6.1",
-    "postcss": "^8.5.28",
-    "oxlint": "^1.71.0",
     "cross-env": "^10.1.0",
+    "oxlint": "^1.71.0",
     "tailwindcss": "^4.3.3",
     "vite": "^8.3.0"
   },

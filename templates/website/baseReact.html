@@ -1,0 +1,22 @@
+{% load django_vite %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Invictus Platform</title>
+
+    <!-- 1. HMR client manager link -->
+    {% vite_hmr_client %}
+    
+    <!-- 2. ⚡ ESSENTIAL FOR REACT: Injects the script wrapper for Hot Reloading -->
+    {% vite_react_refresh %}
+    
+    <!-- 3. Targets your React source entry file -->
+    {% vite_asset 'src/main.jsx' %}
+  </head>
+  <body class="bg-slate-900 text-white m-0 p-0">
+    <div id="root"></div>
+  </body>
+</html>

@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_vite',
 
     "polls.apps.PollsConfig",
     'api',
@@ -76,6 +77,21 @@ MIDDLEWARE = [
     ]
 
 #ROOT_URLCONF = 'Invictus.urls'
+
+
+
+# 🛠️ Django-Vite Configurations
+DJANGO_VITE = {
+    "default": {
+        "dev_mode": DEBUG,
+        "dev_server_host": "localhost",
+        "dev_server_port": 3000,  # Matches Vite server port config
+        "static_url_prefix": "dist", # 👈 Tells Django to prefix assets with static/dist/
+        # 💡 Points to where your Vite production manifest will live in the root
+        "manifest_path": BASE_DIR.parent / "static" / "dist" / ".vite" / "manifest.json",
+        }
+    }
+
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [

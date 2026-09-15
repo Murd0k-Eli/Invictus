@@ -26,16 +26,23 @@ from django.http import HttpResponse
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home_view, name='home'),
-    path('blog/', include('blog.urls')),
     path('about/', views.about_view, name='about'),
     path('contact/', views.contact_view, name='contact'),
     path('privacy/', views.privacy_view, name='privacy'),
     path('terms/', views.terms_view, name='terms'),
     path('robots.txt', TemplateView.as_view(template_name='robots.txt', content_type="text/plain"), name='robots'),
     path('sitemap.xml', TemplateView.as_view(template_name='sitemap.xml', content_type='application/xml'), name='sitemap'),
+
+    path('blog/', include('blog.urls')),
+    
     path('analytics/', include('analytics.urls')),  # Include the URLs from the analytics app
     path('accounts/', include('users.urls')),
+
+    # 📡 Django REST Framework API Endpoints
     path('api/', include('api.urls')),  # Include the URLs from the api app
+    # ⚡ ROOT PATH: Maps the homepage root directly to the React application template
+    path('react/', TemplateView.as_view(template_name='website/baseReact.html'), name='frontend-root'),
+
     path("polls/", include("polls.urls")),
     path("__reload__/", include("django_browser_reload.urls")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)  # Serve media files during development
