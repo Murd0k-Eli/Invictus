@@ -12,6 +12,8 @@ dist-ssr
 *.local
 
 .vite/
+
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
@@ -32,3 +34,8 @@ venv/
 frontend/node_modules
 node_modules
 theme/static_src/node_modules
+
+
+# Ignore python cache files globally across all directories
+**/__pycache__/
+*.pyc
