@@ -52,8 +52,7 @@ INSTALLED_APPS = [
 
     'rest_framework',
     'corsheaders',
-    'tailwind',
-    'theme',
+
     'crispy_forms',
     'tinymce',
     'crispy_bootstrap5',
@@ -90,6 +89,8 @@ REST_FRAMEWORK = {
     ],
 }
 
+ROOT_URLCONF = 'Invictus.urls'
+
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=30),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
@@ -111,15 +112,13 @@ CORS_ALLOW_METHODS = (
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
 ]
-ROOT_URLCONF = 'Invictus.urls'
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
 
-TAILWIND_APP_NAME = 'theme'
+#TAILWIND_APP_NAME = 'theme'
 INTERNAL_IPS = ['127.0.0.1']
 NPM_BIN_PATH = "/home/kumar/.local/bin/npm"
-
 
 TEMPLATES = [
     {
@@ -154,7 +153,6 @@ DATABASES = {
     }
 }
 
-
 # Password validation
 # https://docs.djangoproject.com/en/6.0/ref/settings/#auth-password-validators
 
@@ -172,6 +170,9 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+LOGIN_URL ='login'
+LOGIN_REDIRECT_URL = 'dashboard'
 
 
 # Internationalization
@@ -195,6 +196,3 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # Directory where uploaded media f
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-LOGIN_REDIRECT_URL = 'home'
-LOGIN_URL ='login'

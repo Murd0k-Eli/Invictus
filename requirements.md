@@ -69,7 +69,6 @@ django-browser-reload==1.21.0
 django-cors-headers==4.9.0
 django-crispy-forms==2.6
 django-filter==25.2
-django-tailwind==4.5.0
 django-tinymce==5.0.0
 django-vite==3.1.0
 djangorestframework==3.17.1

@@ -1,0 +1,21 @@
+{% extends 'website/base.html' %}
+
+{% block content %}
+<!-- Inside a dashboard template -->
+<nav>
+    <p>Welcome, {{ user.username }}!</p>
+
+    <!-- Visible to everyone who is logged in -->
+    <a href="{% url 'dashboard' %}">My Profile</a>
+
+    <!-- Only visible to users with analytics viewing clearance -->
+    {% if perms.analytics.view_trafficlog %}
+        <a href="/admin/analytics/trafficlog/" class="text-blue-600 font-bold">⚠️ Access Traffic Dashboard</a>
+    {% endif %}
+
+    <form action="{% url 'logout' %}" method="post" style="display:inline;">
+        {% csrf_token %}
+        <button type="submit">Log Out</button>
+    </form>
+</nav>
+{% endblock content %}

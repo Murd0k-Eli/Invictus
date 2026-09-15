@@ -28,10 +28,10 @@
             <ul class="navbar-nav">
                 {% if request.user.is_authenticated %}
                     <li class="nav-item profile-dropdown">
-                        <a class="nav-link" href="#">{{user.username}}<span class="dropdown-arrow">▾</span></a>
+                        <a class="nav-link" href="{% url 'dashboard' %}">{{user.username}}<span class="dropdown-arrow">▾</span></a>
                         <ul class="profile-dropdown-menu">
                             <li class="nav-item">
-                                <a class="nav-link" href="#">{{user.username}}</a>
+                                <a class="nav-link" href="{% url 'dashboard' %}">{{user.username}}</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{% url 'logout' %}">SignOut</a>

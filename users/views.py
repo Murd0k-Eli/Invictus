@@ -3,6 +3,7 @@ from django.views import View
 from .forms import UserRegisterForm
 from django.contrib.auth import logout
 from django.shortcuts import redirect
+from django.contrib.auth.decorators import login_required, permission_required
 
 class RegisterView(View):
     def get(self, request):
@@ -25,3 +26,13 @@ class LogoutView(View):
         return redirect('blog:home')
 
 # Create your views here.
+@login_required
+def dashboard_view(request):
+    # This view will only execute if the user is authenticated
+    return render(request, 'users/dashboard.html', {'user': request.user})
+
+@login_required
+@permission_required('analytics.view_trafficlog', raise_exception=True)
+def premium_report_view(request):
+    # Only users who have the "can view trafficlog" permission can see this page
+    return render(request, 'analytics/reports.html')

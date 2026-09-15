@@ -1,13 +1,21 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import { defineConfig } from 'vite';
+import path from 'path';
 
-// https://vite.dev/config/
 export default defineConfig({
-  plugins: [react()],
-  server: {
-    port: 3000, // Specify the port you want to use
-  },
   build: {
-    outDir: 'dist', // Specify the output directory for the build
+    // 📂 Save compiled assets directly into your root Django static folder
+    outDir: path.resolve(__dirname, '../static'), 
+    emptyOutDir: false, // Prevent Vite from wiping your other static assets
+    rollupOptions: {
+      input: {
+        // Point this to your source CSS file handling Tailwind
+        styles: path.resolve(__dirname, './src/index.css'), 
+      },
+      output: {
+        // Force Vite to use predictable names without random bundle hashes
+        entryFileNames: 'css/dist/[name].js',
+        assetFileNames: 'css/dist/[name].[ext]',
+      },
+    },
   },
-})
+});
