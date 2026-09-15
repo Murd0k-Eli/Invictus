@@ -1,0 +1,48 @@
+{% extends "admin/change_list.html" %}
+{% load static %}
+
+{% block content_title %}
+    {{ block.super }}
+
+    <!-- Render the Chart canvas right above the data table -->
+    <div style="width: 100%; margin-bottom: 30px; background: #fff; padding: 15px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;">
+        <h3 style="margin-top: 0; color: #333;">🤖 Weekly Honeypot Bot Captures</h3>
+        <canvas id="botChart" style="max-height: 250px; width: 100%;"></canvas>
+    </div>
+
+    <!-- Include Chart.js from CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script id="chart-labels" type="application/json">{{ chart_labels|default:"[]"|safe }}</script>
+    <script id="chart-data" type="application/json">{{ chart_data|default:"[]"|safe }}</script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const ctx = document.getElementById('botChart').getContext('2d');
+            const labels = JSON.parse(document.getElementById('chart-labels').textContent || '[]');
+            const dataPoints = JSON.parse(document.getElementById('chart-data').textContent || '[]');
+
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Bots Caught',
+                        data: dataPoints,
+                        backgroundColor: 'rgba(220, 53, 69, 0.6)',
+                        borderColor: 'rgba(220, 53, 69, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: { precision: 0 }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+{% endblock %}

@@ -1,0 +1,54 @@
+{% extends "admin/change_list.html" %}
+{% load static %}
+
+{% block content_title %}
+    {{ block.super }}
+
+    <!-- Top 10 Pages Visual Panel -->
+    <div style="width: 100%; margin-bottom: 30px; background: #fff; padding: 15px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;">
+        <h3 style="margin-top: 0; color: #333;">📊 Top 10 Most Visited Pages</h3>
+        <canvas id="pagesChart" style="max-height: 320px; width: 100%;"></canvas>
+    </div>
+
+    <!-- Inject serialized query data safely into context blocks -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script id="page-labels" type="application/json">{{ top_page_labels|default:"[]"|safe }}</script>
+    <script id="page-data" type="application/json">{{ top_page_data|default:"[]"|safe }}</script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const ctx = document.getElementById('pagesChart').getContext('2d');
+            const labels = JSON.parse(document.getElementById('page-labels').textContent || '[]');
+            const dataPoints = JSON.parse(document.getElementById('page-data').textContent || '[]');
+
+            new Chart(ctx, {
+                type: 'bar', 
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Total Hits',
+                        data: dataPoints,
+                        backgroundColor: 'rgba(54, 162, 235, 0.6)', // Standard corporate blue
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        borderWidth: 1,
+                        borderRadius: 4
+                    }]
+                },
+                options: {
+                    indexAxis: 'y', // Makes the bar chart horizontal for cleaner URLs
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false }
+                    },
+                    scales: {
+                        x: { 
+                            beginAtZero: true,
+                            ticks: { precision: 0 }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+{% endblock %}
