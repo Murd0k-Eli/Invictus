@@ -50,7 +50,7 @@ class LikeArticle(View):
 class DeleteArticleView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Article
     template_name = 'blog/blog_delete.html'
-    success_url = reverse_lazy('index')
+    success_url = reverse_lazy('home')
     def test_func(self):
         article = Article.objects.get(id=self.kwargs.get('pk'))
         return self.request.user.id == article.author.id

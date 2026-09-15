@@ -12,3 +12,11 @@ class TrafficLog(models.Model):
 
     def __str__(self):
         return f"{self.timestamp} - {self.method} {self.path} ({self.status_code})"
+
+class FlaggedBotIP(models.Model):
+    ip_address = models.GenericIPAddressField(unique=True)
+    flagged_at = models.DateTimeField(auto_now_add=True)
+    reason = models.CharField(max_length=255, default="Honeypot Triggered")
+
+    def __str__(self):
+        return f"Bot IP: {self.ip_address}"

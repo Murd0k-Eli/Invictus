@@ -1,5 +1,6 @@
 # your_app/middleware.py
-from .models import TrafficLog
+from django.utils.deprecation import MiddlewareMixin
+import re
 
 class TrafficLoggerMiddleware:
     # A compiled regex of common bot, crawler, and spider signatures
@@ -29,8 +30,13 @@ class TrafficLoggerMiddleware:
         user_agent = request.META.get('HTTP_USER_AGENT', '')
         referrer = request.META.get('HTTP_REFERER', '')
 
+        # Lazy imports to prevent server initialization issues
+        from .models import TrafficLog, FlaggedBotIP
+        # 3. Check if this IP is already flagged as a bot by the honeypot
+        is_honeypot_bot = FlaggedBotIP.objects.filter(ip_address=ip).exists()
+
         # 3. Save to database (skip static/media files to avoid bloat)
-        if not path.startswith(('/static/', '/media/', '/admin/js/')) and not self.BOT_REGEX.search(user_agent):
+        if not path.startswith(('/static/', '/media/', '/admin/js/', '/hidden-panel/login/')) and not self.BOT_REGEX.search(user_agent) and not is_honeypot_bot:
             TrafficLog.objects.create(
                 ip_address=ip,
                 path=path,
