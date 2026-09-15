@@ -60,6 +60,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',        #CORS Headers Middleware
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -67,10 +68,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'corsheaders.middleware.CorsMiddleware',        #CORS Headers Middleware
+    
     'django_browser_reload.middleware.BrowserReloadMiddleware',  # Browser Reload Middleware
-    # ... default django middleware ...
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
     # Add your custom middleware here (format: 'app_name.file_name.ClassClassName')
     'analytics.middleware.TrafficLoggerMiddleware', 
     ]
@@ -123,10 +123,11 @@ NPM_BIN_PATH = "/home/kumar/.local/bin/npm"
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['templates'],
+        'DIRS': [BASE_DIR.parent / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
+                'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
@@ -187,10 +188,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")] # Directory where Django looks for global assets
+STATICFILES_DIRS = [os.path.join(BASE_DIR.parent, "static")] # Directory where Django looks for global assets
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # Directory where uploaded media files
+MEDIA_ROOT = os.path.join(BASE_DIR.parent, 'media')  # Directory where uploaded media files
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
