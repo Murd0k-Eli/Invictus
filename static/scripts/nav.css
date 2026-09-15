@@ -1,0 +1,262 @@
+/* ========================================
+   Invictus Navbar
+   ======================================== */
+
+.navbar {
+    background: #111827 !important;
+    padding: 0rem 0;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+/* Brand */
+.navbar-brand {
+    color: #ffffff !important;
+    font-size: 1.5rem;
+
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    transition: color 0.3s ease;
+}
+
+.navbar-brand:hover {
+    color: #60a5fa !important;
+}
+
+/* Navigation links */
+.navbar .nav-link {
+    color: #d1d5db !important;
+    font-size: 0.95rem;
+    font-weight: 500;
+    padding: 0.5rem 0.9rem !important;
+    margin: 0 0.15rem;
+    border-radius: 6px;
+    transition:
+        color 0.3s ease,
+        background-color 0.3s ease;
+}
+
+/* Hover effect */
+.navbar .nav-link:hover {
+    color: #ffffff !important;
+    background-color: #1f2937;
+}
+
+/* Active page */
+.navbar .nav-link.active {
+    color: #ffffff !important;
+    background-color: #2563eb;
+}
+
+/* Right-side authentication links */
+.navbar .navbar-nav:last-child .nav-link {
+    margin-left: 0.25rem;
+}
+
+/* Username */
+.navbar .navbar-nav:last-child .nav-link:first-child {
+    color: #93c5fd !important;
+    font-weight: 600;
+}
+
+/* Mobile menu button */
+.navbar-toggler {
+    border: 1px solid #4b5563;
+    padding: 0.4rem 0.6rem;
+}
+
+.navbar-toggler:focus {
+    box-shadow: 0 0 0 0.2rem rgba(96, 165, 250, 0.25);
+}
+
+/* Bootstrap's hamburger icon */
+.navbar-toggler-icon {
+    filter: brightness(0) invert(1);
+}
+
+/* Mobile navigation */
+@media (max-width: 991.98px) {
+    .navbar .navbar-nav {
+        padding-top: 0.75rem;
+    }
+
+    .navbar .nav-link {
+        margin: 0.2rem 0;
+    }
+
+    .navbar .navbar-nav:last-child {
+        border-top: 1px solid #374151;
+        margin-top: 0.75rem;
+        padding-top: 0.75rem;
+    }
+}
+
+/* ========================================
+   Blog Hover Dropdown
+   ======================================== */
+
+.blog-dropdown {
+    position: relative;
+}
+
+/* Small arrow beside Blog */
+.dropdown-arrow {
+    font-size: 0.7rem;
+    margin-left: 0.25rem;
+    transition: transform 0.2s ease;
+}
+
+/* Dropdown container */
+.blog-dropdown-menu {
+    position: absolute;
+
+    top: 100%;
+    left: 0;
+
+    min-width: 160px;
+
+    margin: 0;
+    padding: 0.5rem 0;
+
+    list-style: none;
+
+    background: #111827;
+
+    border-radius: 8px;
+
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+
+    opacity: 0;
+    visibility: hidden;
+
+    transform: translateY(8px);
+
+    transition:
+        opacity 0.2s ease,
+        transform 0.2s ease,
+        visibility 0.2s ease;
+
+    z-index: 1050;
+}
+
+/* Dropdown links */
+.blog-dropdown-menu a {
+    display: block;
+
+    padding: 0.65rem 1rem;
+
+    color: #d1d5db;
+
+    text-decoration: none;
+
+    font-size: 0.9rem;
+    font-weight: 500;
+
+    transition:
+        background-color 0.2s ease,
+        color 0.2s ease;
+}
+
+/* Hover over Featured */
+.blog-dropdown-menu a:hover {
+    color: #ffffff;
+    background-color: #2563eb;
+}
+
+/* Show dropdown when Blog is hovered */
+.blog-dropdown:hover .blog-dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+/* Rotate arrow */
+.blog-dropdown:hover .dropdown-arrow {
+    display: inline-block;
+    transform: rotate(180deg);
+}
+
+
+/* ========================================
+   Profile Hover Dropdown
+   ======================================== */
+.profile-dropdown {
+position: relative;
+}
+
+.profile-dropdown-menu {
+position: absolute;
+top: calc(100% + 4px);
+right: 0;
+left: auto;
+
+min-width: 180px;
+margin: 0;
+padding: 0.5rem 0;
+
+list-style: none;
+
+background: #111827;
+border-radius: 8px;
+
+box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+
+opacity: 0;
+visibility: hidden;
+transform: translateY(8px);
+
+transition:
+    opacity 0.2s ease,
+    transform 0.2s ease,
+    visibility 0.2s ease;
+
+z-index: 1050;
+
+}
+
+.profile-dropdown-menu li {
+margin: 0;
+padding: 0;
+}
+
+.profile-dropdown-menu a {
+display: block;
+
+padding: 0.65rem 1rem;
+
+color: #d1d5db;
+text-decoration: none;
+
+font-size: 0.9rem;
+font-weight: 500;
+
+transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.profile-dropdown-menu a:hover {
+color: #ffffff;
+background-color: #2563eb;
+}
+
+.profile-dropdown:hover .profile-dropdown-menu {
+opacity: 1;
+visibility: visible;
+transform: translateY(0);
+}
+
+.dropdown-arrow {
+display: inline-block;
+margin-left: 0.25rem;
+
+
+font-size: 0.7rem;
+
+transition: transform 0.2s ease;
+
+
+}
+
+.profile-dropdown:hover .dropdown-arrow {
+transform: rotate(180deg);
+}

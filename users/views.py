@@ -14,7 +14,7 @@ class RegisterView(View):
 
         if form.is_valid():
             form.save()
-            return redirect('index')
+            return redirect('blog:home')  # Redirect to the home page after successful registration
         return redirect('register')
 
 class LogoutView(View):
@@ -22,6 +22,6 @@ class LogoutView(View):
         logout(request)
         return render(request, 'users/logout.html')
     def post(self,request):
-        return redirect('index')
+        return redirect('blog:home')
 
 # Create your views here.

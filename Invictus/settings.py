@@ -191,5 +191,5 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # Directory where uploaded media f
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-LOGIN_REDIRECT_URL = 'index'
+LOGIN_REDIRECT_URL = 'home'
 LOGIN_URL ='login'
