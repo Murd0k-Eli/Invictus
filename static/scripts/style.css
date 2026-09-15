@@ -2,7 +2,7 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0px 0px;
-    background: #031d38;
+    background: #052e5a;
     color: #ffffff;
     line-height: 1.25;
 }
@@ -20,9 +20,7 @@ body div.row {
     
 }
 .container {
-    max-width: 1200px;
     margin: 0 auto;
-    background: #fff;
     padding: 40px;
     border-radius: 12px;
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);

@@ -16,6 +16,9 @@ class TrafficLoggerMiddleware:
         # Process the response first to get the final HTTP status code
         response = self.get_response(request)
 
+        # Lazy imports to prevent server initialization issues
+        from .models import TrafficLog, FlaggedBotIP
+
         # Extract visitor details
         # Handle proxy setups (like Nginx, Cloudflare, or Heroku) if applicable
         x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
@@ -35,8 +38,6 @@ class TrafficLoggerMiddleware:
         user_agent = request.META.get('HTTP_USER_AGENT', '')
         referrer = request.META.get('HTTP_REFERER', '')
 
-        # Lazy imports to prevent server initialization issues
-        from .models import TrafficLog, FlaggedBotIP
         # 3. Check if this IP is already flagged as a bot by the honeypot
         is_honeypot_bot = FlaggedBotIP.objects.filter(ip_address=ip).exists()
 
