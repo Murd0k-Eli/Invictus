@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'api',
     'blog',
     'users',
+    'analytics',
 
     'rest_framework',
     'corsheaders',
@@ -69,6 +70,10 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'corsheaders.middleware.CorsMiddleware',        #CORS Headers Middleware
     'django_browser_reload.middleware.BrowserReloadMiddleware',  # Browser Reload Middleware
+    # ... default django middleware ...
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # Add your custom middleware here (format: 'app_name.file_name.ClassClassName')
+    'analytics.middleware.TrafficLoggerMiddleware', 
     ]
 
 #ROOT_URLCONF = 'Invictus.urls'

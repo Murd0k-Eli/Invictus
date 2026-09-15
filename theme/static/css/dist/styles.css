@@ -9,12 +9,9 @@
     --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
     --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
       "Courier New", monospace;
-    --color-orange-100: oklch(95.4% 0.038 75.164);
-    --color-blue-100: oklch(93.2% 0.032 255.585);
     --color-blue-300: oklch(80.9% 0.105 251.813);
     --color-gray-50: oklch(98.5% 0.002 247.839);
     --color-black: #000;
-    --color-white: #fff;
     --spacing: 0.25rem;
     --text-5xl: 3rem;
     --text-5xl--line-height: 1;
@@ -995,15 +992,6 @@
   .h-screen {
     height: 100vh;
   }
-  .w-64 {
-    width: calc(var(--spacing) * 64);
-  }
-  .w-100 {
-    width: calc(var(--spacing) * 100);
-  }
-  .w-full {
-    width: 100%;
-  }
   .flex-row {
     flex-direction: row;
   }
@@ -1013,29 +1001,17 @@
   .justify-center {
     justify-content: center;
   }
-  .bg-blue-100 {
-    background-color: var(--color-blue-100);
-  }
   .bg-blue-300 {
     background-color: var(--color-blue-300);
   }
   .bg-gray-50 {
     background-color: var(--color-gray-50);
   }
-  .bg-orange-100 {
-    background-color: var(--color-orange-100);
-  }
-  .p-2 {
-    padding: calc(var(--spacing) * 2);
-  }
   .pt-3 {
     padding-top: calc(var(--spacing) * 3);
   }
   .pb-2 {
     padding-bottom: calc(var(--spacing) * 2);
-  }
-  .text-center {
-    text-align: center;
   }
   .font-serif {
     font-family: var(--font-serif);
@@ -1061,9 +1037,6 @@
   }
   .text-black {
     color: var(--color-black);
-  }
-  .text-white {
-    color: var(--color-white);
   }
   @layer daisyui.l1.l2 {
     .btn-primary {
