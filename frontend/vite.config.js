@@ -9,7 +9,7 @@ import { dirname } from 'node:path'
 
 export default defineConfig({
   build: {
-    outDir: 'dist', // 👈 Pushes built assets directly to your root static folder
+    outDir: '../static/dist', // 👈 Pushes built assets directly to your root static folder
     emptyOutDir: true,
     manifest: true,            // 👈 Essential for django-vite parsing
     rollupOptions: {
@@ -22,7 +22,7 @@ export default defineConfig({
   ],
   //root: path.resolve(import.meta.dirname ?? dirname(fileURLToPath(import.meta.url)), 'src'), // already default relative to config file location
   server: {
-    port: 5173, // Specify the port you want to use
+    port: 3000, // Specify the port you want to use
     proxy: {
       // This forwards any frontend requests starting with /api to Django
       '/api': {

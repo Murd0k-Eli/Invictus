@@ -117,6 +117,7 @@ SIMPLE_JWT = {
 # 1. Allow CORS requests
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000", # Use this if using Create-React-App
+    "http://127.0.0.1:3000",
     "http://localhost:5173", # Use this if using Vite
 ]
 # CORS_ORIGIN_ALLOW_ALL = True

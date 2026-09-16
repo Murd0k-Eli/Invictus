@@ -19,8 +19,9 @@ function Notes() {
         try {
             // 1. Await the direct API response
             const response = await api.get('/api/notes/')
-                    .then((response) => setNotes(res.data))
-                    .catch(err => console.error("Error fetching notes:", err));
+            //const response = await api.get('/api/notes/')
+            //        .then((response) => setNotes(res.data))
+            //        .catch(err => console.error("Error fetching notes:", err));
             // 2. Axios automatically puts the payload inside .data
             const data = response.data;
             // 3. Update your React state
@@ -41,7 +42,7 @@ function Notes() {
         api
             .post("/api/notes/", {content, title})
             .then((response) => {
-                setNotes([...notes, res.data]);
+                setNotes([...notes, response.data]);
                 setNewNoteTitle('');
                 setNewNoteContent('');
                 if (response.status === 201) 
@@ -58,7 +59,7 @@ function Notes() {
             .delete(`/api/notes/delete/${id}/`)
             .then((response) => {
                 // Filter out the deleted note from your React state UI
-                setNotes(notes.filter(note => note.id !== noteId));
+                setNotes(notes.filter(note => note.id !== id));
                 if (response.status === 204) 
                     alert("Note deleted")
                 else 
