@@ -24,7 +24,6 @@ function Form({route, method}) {
         try {
             console.log("Sending API request")
             const response = await api.post(route, formData)
-            console.log(method)
             if (method === 'login') {
                 alert('Login successful!')
                 localStorage.setItem(ACCESS_TOKEN, response.data.access)
@@ -32,7 +31,6 @@ function Form({route, method}) {
                 navigate('/')
             } else {
                 alert('An error occurred. Please try again later.')
-                console.log(method)
                 console.log(error)
                 setError('Invalid username or password')
                 navigate('/login')
