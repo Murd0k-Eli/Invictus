@@ -1,9 +1,14 @@
 import axios from 'axios';
 import { ACCESS_TOKEN, REFRESH_TOKEN } from './constants';
 
-const apiUrl = "";
+
+// Tell Axios to look for Django's default cookie and header names
+axios.defaults.xsrfCookieName = 'csrftoken';
+axios.defaults.xsrfHeaderName = 'X-CSRFToken';
+const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:8000";
 const api = axios.create({
-    baseURL: import.meta.env.VITE_API_URL? import.meta.env.VITE_API_URL : apiUrl,
+    baseURL: apiUrl,
+    withCredentials: true, // Required for cookies/session tracking across different ports
   headers: {
     'Content-Type': 'application/json',
   },

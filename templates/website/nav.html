@@ -34,7 +34,15 @@
                                 <a class="nav-link" href="{% url 'dashboard' %}">{{user.username}}</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{% url 'logout' %}">SignOut</a>
+                                <!-- The form remains hidden or inline -->
+                                <form id="logout-form" action="{% url 'logout' %}" method="post" style="display: none;">
+                                    {% csrf_token %}
+                                </form>
+
+                                <!-- The actual link that the user sees and clicks -->
+                                <a class="nav-link" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                    SignOut
+                                </a>
                             </li>
                         </ul>
                     </li>

@@ -1,4 +1,5 @@
 {% load static %}
+{% load django_vite %}
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -17,16 +18,25 @@
         <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
         <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
         <!-- ⚡ Reads the output file Vite writes directly to your static dir -->
+        <!--
         <link rel="stylesheet" href="{% static 'css/dist/styles.css' %}">
-            <!-- 🛠️ DEV MODE: Connect directly to Vite Dev Server -->
+        -->
+        <!-- 🛠️ DEV MODE: Connect directly to Vite Dev Server -->
+        
+            <!--
         {% if debug %}
             <script type="module" src="http://localhost:3000/@vite/client"></script>
             <script type="module" src="http://localhost:3000/main.js"></script>
-        {% else %}
+        {% else %} 
+        -->
             <!-- 🚀 PRODUCTION MODE: Load compiled assets -->
+        <!--
             <link rel="stylesheet" href="{% static 'dist/assets/main.css' %}">
             <script type="module" src="{% static 'dist/assets/main.js' %}"></script>
         {% endif %}
+        -->
+        {% vite_hmr_client %}
+        {% vite_asset 'src/main.jsx' %}
     </head>
     <body>
         {% include 'website/nav.html' %}
@@ -35,11 +45,12 @@
         -->
         {% block content %}
         {% endblock content %}
+
+        {% include 'website/cookie-banner.html' %}
+        {% include 'website/footer.html' %}
         <!-- At the very bottom of your base.html inside the <body> tags -->
         <div style="display: none; visibility: hidden;" aria-hidden="true">
             <a href="{% url 'honeypot_trap' %}" rel="nofollow" tabindex="-1">Click here to access dashboard setup</a>
         </div>
-        {% include 'website/cookie-banner.html' %}
-        {% include 'website/footer.html' %}
     </body>
 </html>

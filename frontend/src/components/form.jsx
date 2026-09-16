@@ -13,13 +13,18 @@ function Form({route, method}) {
     const navigate = useNavigate()
 
     const name = method === 'login' ? 'Login' : 'Register'
-
     const handleSubmit = async (e) => {
         e.preventDefault()
         setLoading(true)
         setError('')
+        // Create a multipart form payload
+        const formData = new FormData();
+        formData.append('username', username);
+        formData.append('password', password);
         try {
-            const response = await api.post(route, {username,password})
+            console.log("Sending API request")
+            const response = await api.post(route, formData)
+            console.log(method)
             if (method === 'login') {
                 alert('Login successful!')
                 localStorage.setItem(ACCESS_TOKEN, response.data.access)
@@ -27,11 +32,17 @@ function Form({route, method}) {
                 navigate('/')
             } else {
                 alert('An error occurred. Please try again later.')
+                console.log(method)
+                console.log(error)
                 setError('Invalid username or password')
                 navigate('/login')
             }
         } catch (err) {
             alert('An error occurred. Please try again later.')
+            if (error.response) {
+            // Django field errors live here
+                console.log("Validation details:", error.response.data); 
+            }
             setError('Invalid username or password')
         } finally {
             setLoading(false)
@@ -62,7 +73,7 @@ function Form({route, method}) {
         </div>
         {error && <div style={{color: 'red'}}>{error}</div>}
         {loading && <div>Loading...</div>}
-        {loading && <Loading Indicator />}
+        {loading && <LoadingIndicator />}
         <button className="form-button" type="submit" disabled={loading}>
             {name} 
         </button>

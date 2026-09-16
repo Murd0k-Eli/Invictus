@@ -21,6 +21,19 @@ import Footer from './components/footer.jsx'
 import Axios from 'axios'
 
 /* Define the App functions */
+import { Link } from 'react-router-dom';
+
+function Navigation() {
+  return (
+    <nav>
+      {/* React Router handles these changes instantly without talking to Django */}
+      <Link to="/login">Go to Login</Link>
+      <Link to="/notes">View My Notes</Link>
+    </nav>
+  );
+}
+
+
 function Logout() {
   localStorage.removeItem('access_token');
   localStorage.removeItem('refresh_token');

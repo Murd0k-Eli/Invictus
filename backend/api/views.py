@@ -8,6 +8,9 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 from .models import Note
 
 # Create your views here.
+def index_view(request):
+    return render(request, 'website/baseReact.html')
+
 class CreateUserView(generics.CreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer

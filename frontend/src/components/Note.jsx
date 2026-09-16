@@ -1,9 +1,10 @@
 import React from "react";
 import "../styles/Note.css"
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 function Note({ note, onDelete }) {
     const formattedDate = new Date(note.created_at).toLocaleDateString("en-US")
-
     return (
         <div className="note-container">
             <p className="note-title">{note.title}</p>

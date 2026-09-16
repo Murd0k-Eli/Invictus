@@ -114,20 +114,31 @@ SIMPLE_JWT = {
     'BLACKLIST_AFTER_ROTATION': True,
     'ALGORITHM': 'HS256'
 }
-
+# 1. Allow CORS requests
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000", # Use this if using Create-React-App
     "http://localhost:5173", # Use this if using Vite
 ]
-
-CORS_ORIGIN_ALLOW_ALL = True
+# CORS_ORIGIN_ALLOW_ALL = True
+# Permit cookies to be passed along with cross-origin requests
 CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOW_METHODS = (
     "DELETE", "GET", "OPTIONS", "PATCH", "POST", "PUT", "REGISTER",
 )
-CORS_ALLOWED_ORIGINS = [
+
+# 2. Tell Django's CSRF middleware to trust your React frontend
+# Note: Django requires the protocol (http://) included here
+CSRF_TRUSTED_ORIGINS = [
     "http://localhost:3000",
+    "http://127.0.0.1:3000",
 ]
+# Ensure the CSRF cookie isn't strictly locked out of cross-site scenarios during dev
+CSRF_COOKIE_SAMESITE = 'Lax'
+SESSION_COOKIE_SAMESITE = 'Lax'
+
+# Optional for development: If React is HTTP and Django is HTTP, keep secure False
+CSRF_COOKIE_SECURE = False 
+SESSION_COOKIE_SECURE = False
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
@@ -204,7 +215,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR.parent, "static")] # Directory where Django looks for global assets
+STATICFILES_DIRS = [os.path.join(BASE_DIR.parent, "static"), os.path.join(BASE_DIR.parent, "frontend"), os.path.join(BASE_DIR.parent,"dist")] # Directory where Django looks for global assets
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR.parent, 'media')  # Directory where uploaded media files
