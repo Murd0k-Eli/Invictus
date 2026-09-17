@@ -19,7 +19,7 @@ load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
+ROOT_DIR = BASE_DIR.parent
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
@@ -85,10 +85,10 @@ DJANGO_VITE = {
     "default": {
         "dev_mode": DEBUG,
         "dev_server_host": "localhost",
-        "dev_server_port": 3000,  # Matches Vite server port config
-        "static_url_prefix": "dist", # 👈 Tells Django to prefix assets with static/dist/
-        # 💡 Points to where your Vite production manifest will live in the root
-        "manifest_path": BASE_DIR.parent / "static" / "dist" / ".vite" / "manifest.json",
+        "dev_server_port": 3000,
+        # FIX: Explicitly supply the Vite server URL as the static prefix during dev
+        "static_url_prefix": "http://localhost:3000" if DEBUG else "", 
+        "manifest_path": ROOT_DIR / "static" / "dist" / ".vite" / "manifest.json",
         }
     }
 
@@ -145,13 +145,13 @@ CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 #TAILWIND_APP_NAME = 'theme'
-INTERNAL_IPS = ['127.0.0.1']
+INTERNAL_IPS = ['127.0.0.1', "localhost"]
 NPM_BIN_PATH = "/home/kumar/.local/bin/npm"
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR.parent / 'templates'],
+        'DIRS': [ROOT_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -220,7 +220,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR.parent, "static"), os.path.join(BASE_DIR.parent, "frontend"), os.path.join(BASE_DIR.parent,"dist")] # Directory where Django looks for global assets
+STATICFILES_DIRS = [ 
+    ROOT_DIR / "static", 
+    ROOT_DIR / "frontend",
+    ROOT_DIR / "static/dist",] # Directory where Django looks for global assets
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR.parent, 'media')  # Directory where uploaded media files

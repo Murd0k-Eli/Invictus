@@ -2,8 +2,8 @@
    Invictus Navbar
    ======================================== */
 
-.navbar {
-    background: #111827 !important;
+#main-nav.navbar {
+    background: #0a1836 !important;
     padding: 0rem 0;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
 }
@@ -23,7 +23,7 @@
 }
 
 /* Navigation links */
-.navbar .nav-link {
+#main-nav.navbar .nav-link {
     color: #d1d5db !important;
     font-size: 0.95rem;
     font-weight: 500;
