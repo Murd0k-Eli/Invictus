@@ -18,30 +18,20 @@
         <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
         <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
         <!-- ⚛️ VITE & REACT ASSET INJECTION -->
-        <!-- This preamble is required for React HMR and only renders during dev mode -->
-        {% vite_react_refresh %} 
-        
-        <!-- The HMR Client connects the browser to your Vite server during dev -->
-        {% vite_hmr_client %}
-        
-        <!-- This handles both your dev entrypoint and your compiled production build automatically -->
-        {% vite_asset 'src/main.jsx' %}
+        {% vite_react_refresh %}                <!-- This preamble is required for React HMR and only renders during dev mode -->
+        {% vite_hmr_client %}                   <!-- The HMR Client connects the browser to your Vite server during dev --> 
+        {% vite_asset 'src/main.jsx' %}         <!-- This handles both your dev entrypoint and your compiled production build automatically -->
     </head>
-    <body>
+    <body>      
         {% include 'website/nav.html' %}
-        <!--
-        <button id="myButton" class ="btn btn-primary">Click Me</button>
-        -->
         {% block content %}
         {% endblock content %}
-
         {% include 'website/cookie-banner.html' %}
         {% include 'website/footer.html' %}
+        <div id="root"></div>
         <!-- React Modal Mounting Point -->
-        <div id="react-modal-root">
-            
+        <div id="react-modal-root" class="fixed inset-0 pointer-events-none z-50 flex items-center justify-center">
         </div>
-
         <!-- At the very bottom of your base.html inside the <body> tags -->
         <div style="display: none; visibility: hidden;" aria-hidden="true">
             <a href="{% url 'honeypot_trap' %}" rel="nofollow" tabindex="-1">Click here to access dashboard setup</a>

@@ -28,9 +28,9 @@ function Notes() {
             setNotes(data);
             console.log(data);
         } catch (err) {
-            // 4. Handle errors cleanly
-            alert('Error fetching notes: ' + err.message);
-            setError(err.message);
+            // 4. Handle errors cleanly without blocking the page UI
+            console.error('Error fetching notes:', err);
+            setError(err.message || 'Failed to load notes');
         } finally {
             // 5. This always runs, turning off your loading spinner
             setLoading(false);
@@ -45,13 +45,14 @@ function Notes() {
                 setNotes([...notes, response.data]);
                 setNewNoteTitle('');
                 setNewNoteContent('');
-                if (response.status === 201) 
-                    alert("Note Created.")
-                else 
-                    alert("Failed to create Note")
+                if (response.status === 201) {
+                    console.log('Note created');
+                } else {
+                    console.error('Failed to create note');
+                }
                 getNotes();
             })
-            .catch((error) => alert(error.message));
+            .catch((error) => console.error('Create note failed:', error.message));
     }
 
     const deleteNote = async (id) => {
@@ -60,13 +61,14 @@ function Notes() {
             .then((response) => {
                 // Filter out the deleted note from your React state UI
                 setNotes(notes.filter(note => note.id !== id));
-                if (response.status === 204) 
-                    alert("Note deleted")
-                else 
-                    alert("Failed to delete Note")
+                if (response.status === 204) {
+                    console.log('Note deleted');
+                } else {
+                    console.error('Failed to delete note');
+                }
                 getNotes();
             })
-            .catch((error) => alert(error.message));
+            .catch((error) => console.error('Delete note failed:', error.message));
     }
 
     // 2. Fetch notes on component load (Triggers NoteListCreateView GET method)

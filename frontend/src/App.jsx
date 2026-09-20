@@ -1,73 +1,46 @@
-import react, { useEffect, useState} from 'react'
-import {BrowserRouter, Routes, Route, Navigate} from 'react-router-dom'
+import { Routes, Route, Navigate } from 'react-router-dom'
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-/* Import Pages from a file */
-import Home from './pages/home.jsx'
-import NotFound from './pages/notfound.jsx'
-import Login from './pages/login.jsx'
-import Register from './pages/register.jsx'
-
-/* Import Images from a file */
-import InvictusLogo from './assets/invictus.png'
-
-/* Import components from a file */
 import ProtectedRoute from './components/protectedroute.jsx'
-import Header from './components/header.jsx'
-import Footer from './components/footer.jsx'
+import ModalContainer from './components/ModalContainer.jsx'
 
-
-
-/* Import Modules from a file */
-import Axios from 'axios'
-
-/* Define the App functions */
-import { Link } from 'react-router-dom';
-
-function Navigation() {
-  return (
-    <nav>
-      {/* React Router handles these changes instantly without talking to Django */}
-      <Link to="/login">Go to Login</Link>
-      <Link to="/notes">View My Notes</Link>
-    </nav>
-  );
-}
-
+import NotFound from './pages/notfound.jsx'
 
 function Logout() {
+  // 1. Clear the tokens from local storage
   localStorage.removeItem('access_token');
   localStorage.removeItem('refresh_token');
-  window.location.href = '/login';
-  return <Navigate to="/login" />;
+  // 2. Smoothly redirect without a hard page reload
+  // replace={true} ensures they can't click "back" to enter the app while logged out
+  return <Navigate to="/login" replace={true} />;
 }
 
 function RegisterAndLogout() {
+  const navigate = useNavigate();
   const accessToken = localStorage.getItem('access_token');
+  useEffect(() => {
+    // If no access token exists, cleanly redirect to register without a page reload
+    if (!accessToken) {
+      navigate('/register', { replace: true });
+    }
+  }, [accessToken, navigate]);
+  // If a token exists, render the Logout component to clean up storage
   if (accessToken) {
     return <Logout />;
-  } else {
-    return <Register />;
   }
-  localStorage.removeItem('access_token');
-  localStorage.removeItem('refresh_token');
-  window.location.href = '/register';
-  return <Navigate to="/register" />;
+  // Render nothing while the useEffect redirect happens
+  return null;
 }
+
 
 function App() {
   return (
     <>
-      <Header />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<ProtectedRoute><Home /></ProtectedRoute>} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/logout" element={<Logout />} />
-          <Route path="/register" element={<RegisterAndLogout />} />
-          <Route path="*" element={<NotFound />}></Route>
-        </Routes>
-      </BrowserRouter>
-      <Footer />
+      <Routes>
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+      <ModalContainer />
     </>
   )
 }

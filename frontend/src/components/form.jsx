@@ -1,6 +1,5 @@
 import {useState, useEffect} from 'react'
 import api from '../api'
-import {useNavigate} from 'react-router-dom'
 import {ACCESS_TOKEN, REFRESH_TOKEN} from '../constants'
 import '../styles/form.css'
 import LoadingIndicator from "./LoadingIndicator"
@@ -10,7 +9,10 @@ function Form({route, method}) {
     const [password, setPassword] = useState('')
     const [error, setError] = useState('')
     const [loading, setLoading] = useState(false)
-    const navigate = useNavigate()
+
+    const redirectToDjangoRoute = (path) => {
+        window.location.assign(path)
+    }
 
     const name = method === 'login' ? 'Login' : 'Register'
     const handleSubmit = async (e) => {
@@ -28,12 +30,10 @@ function Form({route, method}) {
                 alert('Login successful!')
                 localStorage.setItem(ACCESS_TOKEN, response.data.access)
                 localStorage.setItem(REFRESH_TOKEN, response.data.refresh)
-                navigate('/')
+                redirectToDjangoRoute('/')
             } else {
-                alert('An error occurred. Please try again later.')
-                console.log(error)
-                setError('Invalid username or password')
-                navigate('/login')
+                alert('Registration successful. Please sign in.')
+                redirectToDjangoRoute('/accounts/login/')
             }
         } catch (err) {
             alert('An error occurred. Please try again later.')
