@@ -30,16 +30,18 @@ function Form({route, method}) {
                 alert('Login successful!')
                 localStorage.setItem(ACCESS_TOKEN, response.data.access)
                 localStorage.setItem(REFRESH_TOKEN, response.data.refresh)
-                redirectToDjangoRoute('/')
+                const token = response.data.access;
+                redirectToDjangoRoute(`/api/auth/session-bridge/?token=${token}`);
+                //redirectToDjangoRoute('/')
             } else {
                 alert('Registration successful. Please sign in.')
                 redirectToDjangoRoute('/accounts/login/')
             }
         } catch (err) {
             alert('An error occurred. Please try again later.')
-            if (error.response) {
+            if (err.response) {
             // Django field errors live here
-                console.log("Validation details:", error.response.data); 
+                console.log("Validation details:", err.response.data); 
             }
             setError('Invalid username or password')
         } finally {

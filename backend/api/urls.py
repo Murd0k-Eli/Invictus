@@ -1,6 +1,6 @@
 from django.urls import path, re_path
 from . import views
-from api.views import CreateUserView, index_view
+from api.views import CreateUserView, index_view, SessionBridgeView
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,)
@@ -15,7 +15,7 @@ urlpatterns = [
     path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('auth/', include('rest_framework.urls')),  # Add this line to include the login/logout views
-
+    path('auth/session-bridge/', SessionBridgeView.as_view(), name='session_bridge'),
     # 2. The Catch-All: Send everything else to React!
     # If a URL doesn't start with admin/ or api/, let React Router take care of it.
     re_path(r'^.*$', index_view, name='frontend'),

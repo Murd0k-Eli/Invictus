@@ -1,8 +1,12 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
+from django.contrib.auth import login
+from rest_framework_simplejwt.tokens import AccessToken
 from api.serializers import UserSerializer, NoteSerializer
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework.views import APIView
+from rest_framework.response import Response
 
 # Import your models here.
 from .models import Note
@@ -10,6 +14,24 @@ from .models import Note
 # Create your views here.
 def index_view(request):
     return render(request, 'website/baseReact.html')
+
+class SessionBridgeView(APIView):
+    permission_classes = [AllowAny]
+
+    def get(self, request):
+        token = request.GET.get('token')
+        if not token:
+            return redirect('/')
+
+        try:
+            access_token = AccessToken(token)
+            user_id = access_token['user_id']
+            user = User.objects.get(id=user_id)
+            login(request, user)
+            return redirect('/')
+        except Exception as e:
+            print(f"Session bridge error: {e}")
+            return redirect('/')
 
 class CreateUserView(generics.CreateAPIView):
     queryset = User.objects.all()
