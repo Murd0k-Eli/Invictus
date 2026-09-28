@@ -7,9 +7,12 @@ from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from .serializers import NoteSerializer, ArticleSerializer # Add ArticleSerializer here
+
 
 # Import your models here.
 from .models import Note
+from blog.models import Article
 
 # Create your views here.
 def index_view(request):
@@ -48,10 +51,7 @@ class NoteListCreateView(generics.ListCreateAPIView):
         return Note.objects.filter(author=user)  # Return only the notes of the logged-in user
     
     def perform_create(self, serializer):
-        if self.request.user.is_authenticated:
-            serializer.save(author=self.request.user)  # Set the author to the currently logged-in user
-        else:
-            raise PermissionDenied("You must be logged in to create a note.") # type: ignore
+        serializer.save(author=self.request.user)
 
 class NoteDeleteView(generics.DestroyAPIView):
     queryset = Note.objects.all()
@@ -66,3 +66,11 @@ class NoteDeleteView(generics.DestroyAPIView):
         if instance.author != self.request.user:
             raise PermissionDenied("You do not have permission to delete this note.") # type: ignore
         instance.delete()
+
+class ArticleCreateAPIView(generics.CreateAPIView):
+    queryset = Article.objects.all()
+    serializer_class = ArticleSerializer
+    permission_classes = [IsAuthenticated]
+
+    def perform_create(self, serializer):
+        serializer.save(author=self.request.user)

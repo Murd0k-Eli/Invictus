@@ -3,6 +3,7 @@ from rest_framework import serializers
 
 #import your models here.
 from .models import Note
+from blog.models import Article
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -28,3 +29,9 @@ class NoteSerializer(serializers.ModelSerializer):
             'updated_at': {'read_only': True},
             'author': {'read_only': True},  # Ensure that the author field is read-only
         }
+        
+class ArticleSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Article
+        fields = ['id', 'title', 'content', 'image', 'date', 'author', 'featured']
+        read_only_fields = ['date', 'author']

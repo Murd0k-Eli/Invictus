@@ -5,7 +5,7 @@ import { ACCESS_TOKEN, REFRESH_TOKEN } from './constants';
 // Tell Axios to look for Django's default cookie and header names
 axios.defaults.xsrfCookieName = 'csrftoken';
 axios.defaults.xsrfHeaderName = 'X-CSRFToken';
-const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:8000";
+const apiUrl = import.meta.env.VITE_API_URL || "http://127.0.0.1:8000";
 const api = axios.create({
     baseURL: apiUrl,
     withCredentials: true, // Required for cookies/session tracking across different ports
@@ -42,7 +42,7 @@ api.interceptors.response.use(
       try {
         const refreshToken = localStorage.getItem(REFRESH_TOKEN);
         const response = await axios.post(
-          'http://localhost:8000/api/token/refresh/',
+          'http://127.0.0.1:8000/api/token/refresh/',
           { refresh: refreshToken }
         );
         const newAccessToken = response.data.access;

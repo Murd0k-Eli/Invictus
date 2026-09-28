@@ -24,11 +24,11 @@
     </head>
     <body>      
         {% include 'website/nav.html' %}
+        <div id="root"></div>
         {% block content %}
         {% endblock content %}
         {% include 'website/cookie-banner.html' %}
         {% include 'website/footer.html' %}
-        <div id="root"></div>
         <!-- React Modal Mounting Point -->
         <div id="react-modal-root" class="fixed inset-0 pointer-events-none z-50 flex items-center justify-center">
         </div>

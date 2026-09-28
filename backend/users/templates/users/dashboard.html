@@ -12,10 +12,12 @@
     {% if perms.analytics.view_trafficlog %}
         <a href="/admin/analytics/trafficlog/" class="text-blue-600 font-bold">⚠️ Access Traffic Dashboard</a>
     {% endif %}
-
+    <br>
+    <br>
+    <button onclick="window.dispatchEvent(new CustomEvent('open-blog-modal', { detail: { mode: 'blog' } }));" class="btn btn-primary btn-sm">Create New Post</button>
     <form action="{% url 'logout' %}" method="post" style="display:inline;">
         {% csrf_token %}
-        <button type="submit">Log Out</button>
     </form>
-</nav>
-{% endblock content %}
+    <button type="submit">Log Out</button>
+    </nav>
+    {% endblock content %}

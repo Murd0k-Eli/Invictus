@@ -38,7 +38,7 @@ function App() {
   return (
     <>
       <Routes>
-        <Route path="*" element={<NotFound />} />
+        
       </Routes>
       <ModalContainer />
     </>

@@ -11,6 +11,7 @@ urlpatterns = [
     path('user/register/', CreateUserView.as_view(), name='register-deprecated'),
     path('notes/', views.NoteListCreateView.as_view(), name='note-list-create'),
     path('notes/delete/<int:pk>/', views.NoteDeleteView.as_view(), name='note-delete'),
+    path('articles/create/', views.ArticleCreateAPIView.as_view(), name='article-create'),
 
     path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
