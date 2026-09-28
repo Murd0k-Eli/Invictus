@@ -51,6 +51,7 @@ const BlogPostForm = () => {
                     <input 
                         type="text" 
                         id="title" 
+                        className="form-input"
                         value={title} 
                         onChange={(e) => setTitle(e.target.value)} 
                         placeholder="Enter post title" 
@@ -61,6 +62,7 @@ const BlogPostForm = () => {
                     <label htmlFor="content">Content</label>
                     <textarea 
                         id="content" 
+                        className="form-input"
                         value={content} 
                         onChange={(e) => setContent(e.target.value)} 
                         placeholder="Write your content here..." 
@@ -73,11 +75,12 @@ const BlogPostForm = () => {
                     <input 
                         type="file" 
                         id="image" 
+                        className="form-input"
                         onChange={(e) => setImage(e.target.files[0])} 
                         accept="image/*"
                     />
                 </div>
-                <button type="submit" disabled={loading}>
+                <button type="submit" className="form-button" disabled={loading}>
                     {loading ? 'Posting...' : 'Publish Post'}
                 </button>
                 {message.text && (

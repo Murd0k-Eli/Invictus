@@ -17,9 +17,10 @@
     padding: 2rem;
     border-radius: 12px;
     position: relative;
-    min-width: 400px;
     box-shadow: 0 10px 25px rgba(0,0,0,0.2);
     animation: slideUp 0.3s ease-out;
+    display: flex;
+    flex-direction: column;
 }
 
 .close-button {
