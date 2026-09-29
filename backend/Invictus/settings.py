@@ -32,6 +32,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
+SITE_ID = 1
+
 # SETTINGS_PATH = os.path.dirname(os.path.dirname(__file__))
 
 # Application definition
@@ -43,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
     'django_vite',
 
     "polls.apps.PollsConfig",
@@ -54,6 +57,11 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
 
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
+    
     'crispy_forms',
     'tinymce',
     'crispy_bootstrap5',
@@ -71,10 +79,16 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     
     'django_browser_reload.middleware.BrowserReloadMiddleware',  # Browser Reload Middleware
+    "allauth.account.middleware.AccountMiddleware",
 
     # Add your custom middleware here (format: 'app_name.file_name.ClassClassName')
     'analytics.middleware.TrafficLoggerMiddleware', 
     ]
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
 
 #ROOT_URLCONF = 'Invictus.urls'
 
@@ -203,6 +217,36 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+AUTHENTICATION_BACKENDS = [
+    # Needed to log in by username in Django admin, regardless of allauth
+    'django.contrib.auth.backends.ModelBackend',
+    
+    # allauth specific authentication methods, such as login by email
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
+
+SITE_ID = 1
+
+# settings.py
+
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'APP': {
+            'client_id': '166780887229-frj425b620vb3ttmc6qrpai518v7mu0o.apps.googleusercontent.com',
+            'secret': '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',
+            'key': ''  # Leave empty
+        },
+        'SCOPE': [
+            'profile',
+            'email',
+        ],
+        'AUTH_PARAMS': {
+            'access_type': 'online',
+        }
+    }
+}
+
+
 LOGIN_URL ='login'
 LOGIN_REDIRECT_URL = 'dashboard'
 # Redirect to the login page after logout
@@ -235,3 +279,5 @@ MEDIA_ROOT = os.path.join(BASE_DIR.parent, 'media')  # Directory where uploaded 
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+

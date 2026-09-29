@@ -43,6 +43,7 @@ urlpatterns = [
     
     path('analytics/', include('analytics.urls')),  # Include the URLs from the analytics app
     path('accounts/', include('users.urls')),
+    path('accounts/', include('allauth.urls')),
 
     # 📡 Django REST Framework API Endpoints
     path('api/', include('api.urls')),  # Include the URLs from the api app
