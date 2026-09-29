@@ -4,6 +4,7 @@ import { BrowserRouter } from 'react-router-dom'
 import App from './App.jsx'
 import BlogPostForm from './components/BlogPostForm.jsx'
 import CommentSection from './components/CommentSection.jsx'
+import Notes from './components/notes.jsx'
 
 const rootElement = document.getElementById('root')
 if (rootElement) {
@@ -35,6 +36,15 @@ if (commentSectionElement) {
     ReactDOM.createRoot(commentSectionElement).render(
         <React.StrictMode>
             <CommentSection articleId={articleId} />
+        </React.StrictMode>
+    );
+}
+
+const notesElement = document.getElementById('notes-root')
+if (notesElement) {
+    ReactDOM.createRoot(notesElement).render(
+        <React.StrictMode>
+            <Notes />
         </React.StrictMode>
     );
 }

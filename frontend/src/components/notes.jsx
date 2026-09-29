@@ -14,7 +14,8 @@ function Notes() {
 
     const [title, setTitle] = useState('');
     const [newNoteTitle, setNewNoteTitle] = useState('');
-    
+    const [showForm, setShowForm] = useState(false);
+
     const getNotes = async () => {
         try {
             // 1. Await the direct API response
@@ -80,42 +81,55 @@ function Notes() {
     if (error) return <p>Error loading notes: {error}</p>;
 
     return (
-        <div>
-            <div>
-                <h2>Notes</h2>
-                {notes && notes?.map((note) => (
-                    <Note note={note} onDelete={deleteNote} key={note.id} />
-                ))}
+        <div className="notes-dashboard-container">
+            <div className="notes-header d-flex justify-content-between align-items-center mb-3">
+                <h3 className="fw-bold mb-0">My Quick Notes</h3>
+                <button 
+                    className="btn btn-outline-primary btn-sm" 
+                    onClick={() => setShowForm(!showForm)}
+                >
+                    {showForm ? 'Close' : 'Add Note'}
+                </button>
             </div>
-            <div>
-                <h2>Create a Note: </h2>
-                <form onSubmit={createNote}>
-                    <br/>
-                    <label htmlFor='title'>Title: </label>
-                    <input 
-                        type='text' 
-                        id='title' 
-                        name='title' 
-                        required 
-                        onChange={(e) => setTitle(e.target.value)}
-                        value ={title}
-                    />
-                    <br/>
-                    <br/>
-                    <label htmlFor='content'>Content: </label>
-                    <textarea  
-                        id='content' 
-                        name='content' 
-                        required 
-                        onChange={(e) => setContent(e.target.value)}
-                        value ={content}
-                    />
-                    <br/>
-                    <input type="submit" value ="Submit"></input>
-                </form>
+            
+            {showForm && (
+                <div className="note-create-box p-3 mb-4 border rounded-3 bg-light">
+                    <form onSubmit={createNote} className="d-flex flex-column gap-2">
+                        <input 
+                            type='text' 
+                            className="form-control form-control-sm" 
+                            placeholder="Note Title" 
+                            required 
+                            value={title}
+                            onChange={(e) => setTitle(e.target.value)}
+                        />
+                        <textarea 
+                            className="form-control form-control-sm" 
+                            placeholder="Note content..." 
+                            required 
+                            rows="3"
+                            value={content}
+                            onChange={(e) => setContent(e.target.value)}
+                        />
+                        <div className="d-flex justify-content-end gap-2">
+                            <button type="button" className="btn btn-secondary btn-sm" onClick={() => setShowForm(false)}>Cancel</button>
+                            <button type="submit" className="btn btn-primary btn-sm">Save Note</button>
+                        </div>
+                    </form>
+                </div>
+            )}
+
+            <div className="notes-grid d-flex flex-wrap gap-3">
+                {notes.length === 0 ? (
+                    <p className="text-muted">No notes yet. Start adding some!</p>
+                ) : (
+                    notes.map((note) => (
+                        <Note note={note} onDelete={deleteNote} key={note.id} />
+                    ))
+                )}
             </div>
         </div>
     );
-}
+};
 
 export default Notes;

@@ -1,33 +1,47 @@
 .note-container {
-  padding: 10px;
-  margin: 20px 0;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+  padding: 15px;
+  margin: 10px;
+  border: none;
+  border-radius: 12px;
+  background-color: #0d6efd;
+  color: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease;
+}
+
+.note-container:hover {
+  transform: translateY(-5px);
 }
 
 .note-title {
-  color: #333;
+  color: white;
+  font-weight: bold;
+  font-size: 1.1rem;
+  margin-bottom: 5px;
 }
 
 .note-content {
-  color: #666;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 10px;
 }
 
 .note-date {
-  color: #999;
-  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.75rem;
 }
 
 .delete-button {
-  background-color: #f44336; /* Red */
+  background-color: rgba(255, 255, 255, 0.2);
   color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  padding: 5px 12px;
+  border-radius: 6px;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: all 0.2s;
+  font-size: 0.8rem;
 }
 
 .delete-button:hover {
-  background-color: #d32f2f; /* Darker red */
+  background-color: #dc3545;
+  border-color: #dc3545;
 }
