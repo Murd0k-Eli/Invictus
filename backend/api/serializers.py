@@ -3,7 +3,7 @@ from rest_framework import serializers
 
 #import your models here.
 from .models import Note
-from blog.models import Article
+from blog.models import Article, Comment
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -35,3 +35,11 @@ class ArticleSerializer(serializers.ModelSerializer):
         model = Article
         fields = ['id', 'title', 'content', 'image', 'date', 'author', 'featured']
         read_only_fields = ['date', 'author']
+
+class CommentSerializer(serializers.ModelSerializer):
+    user = serializers.ReadOnlyField(source='user.username')
+
+    class Meta:
+        model = Comment
+        fields = ['id', 'article', 'user', 'text', 'created_at']
+        read_only_fields = ['article', 'user', 'created_at']

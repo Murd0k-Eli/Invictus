@@ -1,23 +1,60 @@
 {% extends 'website/base.html' %}
 
 {% block content %}
-<!-- Inside a dashboard template -->
-<nav>
-    <p>Welcome, {{ user.username }}!</p>
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-sm border-0 rounded-4 overflow-hidden">
+                <div class="card-header bg-primary text-white p-4">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h2 class="mb-0 h4">Welcome, {{ user.username }}!</h2>
+                        <form action="{% url 'logout' %}" method="post" style="display:inline;">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-light btn-sm fw-bold">Log Out</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="card-body p-4">
+                    <div class="row g-4">
+                        <!-- Profile Section -->
+                        <div class="col-sm-6">
+                            <div class="p-3 border rounded-3 h-100 text-center">
+                                <div class="mb-3">
+                                    <i class="bi bi-person-circle" style="font-size: 3rem; color: #0d6efd;"></i>
+                                </div>
+                                <h5 class="fw-bold">Account</h5>
+                                <p class="text-muted small">Manage your personal details and settings.</p>
+                                <a href="{% url 'dashboard' %}" class="btn btn-outline-primary btn-sm w-100">My Profile</a>
+                            </div>
+                        </div>
 
-    <!-- Visible to everyone who is logged in -->
-    <a href="{% url 'dashboard' %}">My Profile</a>
+                        <!-- Analytics Section -->
+                        <div class="col-sm-6">
+                            <div class="p-3 border rounded-3 h-100 text-center">
+                                <div class="mb-3">
+                                    <i class="bi bi-graph-up" style="font-size: 3rem; color: #0d6efd;"></i>
+                                </div>
+                                <h5 class="fw-bold">Analytics</h5>
+                                {% if perms.analytics.view_trafficlog %}
+                                    <p class="text-muted small">Monitor your site traffic and visitor logs.</p>
+                                    <a href="/admin/analytics/trafficlog/" class="btn btn-outline-primary btn-sm w-100">Access Traffic Dashboard</a>
+                                {% else %}
+                                    <p class="text-muted small">Analytics access is restricted for your account.</p>
+                                    <button class="btn btn-secondary btn-sm w-100" disabled>Locked</button>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
 
-    <!-- Only visible to users with analytics viewing clearance -->
-    {% if perms.analytics.view_trafficlog %}
-        <a href="/admin/analytics/trafficlog/" class="text-blue-600 font-bold">⚠️ Access Traffic Dashboard</a>
-    {% endif %}
-    <br>
-    <br>
-    <button onclick="window.dispatchEvent(new CustomEvent('open-blog-modal', { detail: { mode: 'blog' } }));" class="btn btn-primary btn-sm">Create New Post</button>
-    <form action="{% url 'logout' %}" method="post" style="display:inline;">
-        {% csrf_token %}
-    </form>
-    <button type="submit">Log Out</button>
-    </nav>
-    {% endblock content %}
+                    <div class="mt-5 text-center">
+                        <h4 class="fw-bold mb-3">Quick Actions</h4>
+                        <button onclick="window.dispatchEvent(new CustomEvent('open-blog-modal', { detail: { mode: 'blog' } }));" class="btn btn-primary btn-lg px-5 shadow-sm">
+                            <i class="bi bi-plus-circle me-2"></i> Create New Blog Post
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

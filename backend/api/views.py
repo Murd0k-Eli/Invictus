@@ -3,16 +3,14 @@ from django.contrib.auth.models import User
 from django.contrib.auth import login
 from rest_framework_simplejwt.tokens import AccessToken
 from api.serializers import UserSerializer, NoteSerializer
+from api.serializers import ArticleSerializer, CommentSerializer
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from .serializers import NoteSerializer, ArticleSerializer # Add ArticleSerializer here
-
-
-# Import your models here.
 from .models import Note
-from blog.models import Article
+from blog.models import Article, Comment
 
 # Create your views here.
 def index_view(request):
@@ -74,3 +72,32 @@ class ArticleCreateAPIView(generics.CreateAPIView):
 
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)
+
+class CommentListCreateAPIView(generics.ListCreateAPIView):
+    serializer_class = CommentSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        article_id = self.kwargs.get('pk')
+        return Comment.objects.filter(article_id=article_id)
+
+    def perform_create(self, serializer):
+        article_id = self.kwargs.get('pk')
+        try:
+            article = Article.objects.get(pk=article_id)
+            serializer.save(user=self.request.user, article=article)
+        except Article.DoesNotExist:
+            from rest_framework.exceptions import NotFound
+            raise NotFound("Article not found")
+
+class CommentDeleteAPIView(generics.DestroyAPIView):
+    queryset = Comment.objects.all()
+    serializer_class = CommentSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        return Comment.objects.filter(user=self.request.user)
+
+    def perform_destroy(self, instance):
+        # The get_queryset already filters by user, but we can be explicit
+        instance.delete()
