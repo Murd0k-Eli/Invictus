@@ -82,6 +82,7 @@ class CommentListCreateAPIView(generics.ListCreateAPIView):
         return Comment.objects.filter(article_id=article_id)
 
     def perform_create(self, serializer):
+        print(f"DEBUG: User posting comment: {self.request.user}")
         article_id = self.kwargs.get('pk')
         try:
             article = Article.objects.get(pk=article_id)

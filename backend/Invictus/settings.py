@@ -119,6 +119,7 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000", # Use this if using Create-React-App
     "http://127.0.0.1:3000",
     "http://localhost:5173", # Use this if using Vite
+    "https://spearfish-oil-wrinkle.ngrok-free.dev",
 ]
 # CORS_ORIGIN_ALLOW_ALL = True
 # Permit cookies to be passed along with cross-origin requests
@@ -132,6 +133,8 @@ CORS_ALLOW_METHODS = (
 CSRF_TRUSTED_ORIGINS = [
     "http://localhost:3000",
     "http://127.0.0.1:3000",
+    "https://spearfish-oil-wrinkle.ngrok-free.dev",
+    
 ]
 # Ensure the CSRF cookie isn't strictly locked out of cross-site scenarios during dev
 CSRF_COOKIE_SAMESITE = 'Lax'

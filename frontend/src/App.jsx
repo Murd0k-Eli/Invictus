@@ -38,7 +38,9 @@ function App() {
   return (
     <>
       <Routes>
-        
+        <Route path="/login" element={<ProtectedRoute><RegisterAndLogout /></ProtectedRoute>} />
+        <Route path="/register" element={<ProtectedRoute><RegisterAndLogout /></ProtectedRoute>} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
       <ModalContainer />
     </>

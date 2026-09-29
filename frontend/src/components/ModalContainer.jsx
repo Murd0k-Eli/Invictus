@@ -27,7 +27,7 @@ const ModalContainer = () => {
                 <button className="close-button absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-2xl font-semibold leading-none focus:outline-none" onClick={() => setIsOpen(false)}>&times;</button>
                 <div className="modal-body w-full">
                     {mode === 'login' ?  (<Form route="/api/token/" method="login" />): 
-                     mode === 'register' ? (<Form route="/api/user/register/" method="register" />):
+                     mode === 'signup' ? (<Form route="/api/user/register/" method="register" />):
                      mode === 'blog' ? (<BlogPostForm />): null}
                 </div>
             </div>
