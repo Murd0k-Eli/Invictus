@@ -39,3 +39,6 @@ theme/static_src/node_modules
 # Ignore python cache files globally across all directories
 **/__pycache__/
 *.pyc
+
+
+.env
