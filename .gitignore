@@ -41,4 +41,4 @@ theme/static_src/node_modules
 *.pyc
 
 
-.env
+backend/.env

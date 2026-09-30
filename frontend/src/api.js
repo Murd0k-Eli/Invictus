@@ -41,14 +41,29 @@ api.interceptors.response.use(
       originalRequest._retry = true;
       try {
         const refreshToken = localStorage.getItem(REFRESH_TOKEN);
-        const response = await axios.post(
-          'http://127.0.0.1:8000/api/token/refresh/',
-          { refresh: refreshToken }
-        );
-        const newAccessToken = response.data.access;
-        localStorage.setItem(ACCESS_TOKEN, newAccessToken);
-        originalRequest.headers['Authorization'] = `Bearer ${newAccessToken}`;
-        return api(originalRequest);
+        if (refreshToken) {
+          const response = await axios.post(
+            `${apiUrl}/api/token/refresh/`,
+            { refresh: refreshToken }
+          );
+          const newAccessToken = response.data.access;
+          localStorage.setItem(ACCESS_TOKEN, newAccessToken);
+          originalRequest.headers['Authorization'] = `Bearer ${newAccessToken}`;
+          return api(originalRequest);
+        } else {
+          // No refresh token, try to exchange session for tokens
+          try {
+            const exchangeResponse = await api.get('/api/token/exchange/');
+            const { access, refresh } = exchangeResponse.data;
+            localStorage.setItem(ACCESS_TOKEN, access);
+            localStorage.setItem(REFRESH_TOKEN, refresh);
+            originalRequest.headers['Authorization'] = `Bearer ${access}`;
+            return api(originalRequest);
+          } catch (exchangeError) {
+            console.error('Session exchange failed:', exchangeError);
+            throw exchangeError;
+          }
+        }
       } catch (refreshError) {
         console.error('Refresh token error:', refreshError);
         // Handle refresh token failure (e.g., redirect to login)
@@ -58,4 +73,4 @@ api.interceptors.response.use(
   }
 );
 
-export default api; 
+export default api;

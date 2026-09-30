@@ -1,13 +1,14 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import login
-from rest_framework_simplejwt.tokens import AccessToken
+from rest_framework_simplejwt.tokens import AccessToken, RefreshToken
 from api.serializers import UserSerializer, NoteSerializer
 from api.serializers import ArticleSerializer, CommentSerializer
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 from .serializers import NoteSerializer, ArticleSerializer # Add ArticleSerializer here
 from .models import Note
 from blog.models import Article, Comment
@@ -38,6 +39,19 @@ class CreateUserView(generics.CreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     permission_classes = [AllowAny]  # Allow any user to create an account 
+
+class TokenExchangeView(APIView):
+    authentication_classes = [SessionAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        user = request.user
+        refresh = RefreshToken.for_user(user)
+
+        return Response({
+            'access': str(refresh.access_token),
+            'refresh': str(refresh),
+        })
 
 class NoteListCreateView(generics.ListCreateAPIView):
     queryset = Note.objects.all()

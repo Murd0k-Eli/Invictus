@@ -35,7 +35,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
-SITE_ID = 1
+SITE_ID = 2
+
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 # SETTINGS_PATH = os.path.dirname(os.path.dirname(__file__))
 
@@ -112,12 +114,10 @@ DJANGO_VITE = {
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.AllowAny',
         'rest_framework.permissions.IsAuthenticated',
     ],
     'DEFAULT_AUTHENTICATION_CLASSES': [
-    #    'rest_framework.authentication.SessionAuthentication',
-    #    'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ],
 }
@@ -222,32 +222,27 @@ AUTH_PASSWORD_VALIDATORS = [
 
 AUTHENTICATION_BACKENDS = [
     # Needed to log in by username in Django admin, regardless of allauth
-    'django.contrib.auth.backends.ModelBackend',
-    
+    'django.contrib.auth.backends.ModelBackend',    
     # allauth specific authentication methods, such as login by email
     'allauth.account.auth_backends.AuthenticationBackend',
 ]
 
-SITE_ID = 1
-
-# settings.py
-
-SOCIALACCOUNT_PROVIDERS = {
-    'google': {
-        'APP': {
-            'client_id': SOCIAL_AUTH_GOOGLE_OAUTH2_KEY,
-            'secret': SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET,
-            'key': ''  # Leave empty
-        },
-        'SCOPE': [
-            'profile',
-            'email',
-        ],
-        'AUTH_PARAMS': {
-            'access_type': 'online',
-        }
-    }
-}
+#SOCIALACCOUNT_PROVIDERS = {
+#    'google': {
+#        'APP': {
+#            'client_id': SOCIAL_AUTH_GOOGLE_OAUTH2_KEY,
+#            'secret': SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET,
+#            'key': ''  # Leave empty
+#        },
+#        'SCOPE': [
+#            'profile',
+#            'email',
+#        ],
+#        'AUTH_PARAMS': {
+#            'access_type': 'online',
+#        }
+#    }
+#}
 
 
 LOGIN_URL ='login'
