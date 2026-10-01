@@ -46,13 +46,14 @@
                     </li>
                 {% else %}
                     <li class="nav-item">
-                        <a class="nav-link" href="#" onclick="window.dispatchEvent(new CustomEvent('open-auth-modal', { detail: { mode: 'login' } })); return false;">SignIn</a>
+                        <a class="nav-link" href="#" onclick="document.dispatchEvent(new CustomEvent('open-auth-modal', { detail: { mode: 'login' } })); return false;">SignIn</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#" onclick="window.dispatchEvent(new CustomEvent('open-auth-modal', { detail: { mode: 'signup' } })); return false;">SignUp</a>
+                        <a class="nav-link" href="#" onclick="document.dispatchEvent(new CustomEvent('open-auth-modal', { detail: { mode: 'signup' } })); return false;">SignUp</a>
                     </li>
                 {% endif %}
             </ul>
         </div>
     </div>
 </nav>
+

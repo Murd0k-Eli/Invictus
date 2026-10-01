@@ -9,13 +9,14 @@ const ModalContainer = () => {
     useEffect(() => {
         const handleOpenModal = (event) => {
             setMode(event.detail?.mode || 'login');
+            console.log("Modal opened via event");
             setIsOpen(true);
         };
-        window.addEventListener('open-auth-modal', handleOpenModal);
-        window.addEventListener('open-blog-modal', handleOpenModal);
+        document.addEventListener('open-auth-modal', handleOpenModal);
+        document.addEventListener('open-blog-modal', handleOpenModal);
         return () => {
-            window.removeEventListener('open-auth-modal', handleOpenModal);
-            window.removeEventListener('open-blog-modal', handleOpenModal);
+            document.removeEventListener('open-auth-modal', handleOpenModal);
+            document.removeEventListener('open-blog-modal', handleOpenModal);
         };
     }, []);
     if (!isOpen) return null;

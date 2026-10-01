@@ -48,7 +48,7 @@
 
                     <div class="mt-5 text-center">
                         <h4 class="fw-bold mb-3">Quick Actions</h4>
-                        <button onclick="window.dispatchEvent(new CustomEvent('open-blog-modal', { detail: { mode: 'blog' } }));" class="btn btn-primary btn-lg px-5 shadow-sm">
+                        <button onclick="document.dispatchEvent(new CustomEvent('open-blog-modal', { detail: { mode: 'blog' } }));" class="btn btn-primary btn-lg px-5 shadow-sm">
                             <i class="bi bi-plus-circle me-2"></i> Create New Blog Post
                         </button>
                     </div>
